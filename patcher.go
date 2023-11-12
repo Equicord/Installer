@@ -29,8 +29,8 @@ var PackageJson = []byte(`{
 `)
 
 func init() {
-	if dir := os.Getenv("VENCORD_USER_DATA_DIR"); dir != "" {
-		fmt.Println("Using VENCORD_USER_DATA_DIR")
+	if dir := os.Getenv("STORMCORD_USER_DATA_DIR"); dir != "" {
+		fmt.Println("Using STORMCORD_USER_DATA_DIR")
 		BaseDir = dir
 	} else if dir = os.Getenv("DISCORD_USER_DATA_DIR"); dir != "" {
 		fmt.Println("Using DISCORD_USER_DATA_DIR/../VencordData")
@@ -74,7 +74,7 @@ func IsSafeToDelete(path string) error {
 	for _, file := range files {
 		name := file.Name()
 		if name != "package.json" && name != "index.js" {
-			return errors.New("Found file '" + name + "' which doesn't belong to Vencord.")
+			return errors.New("Found file '" + name + "' which doesn't belong to Stormcord.")
 		}
 	}
 	return nil

@@ -37,7 +37,7 @@ var InstalledHash = "None"
 var LatestHash = "Unknown"
 var IsDevInstall bool
 
-func GetGithubRelease(url, fallbackUrl string) (*GithubRelease, error) {
+func GetGithubRelease(url, string) (*GithubRelease, error) {
 	fmt.Println("Fetching", url)
 
 	req, err := http.NewRequest("GET", url, nil)
@@ -58,13 +58,10 @@ func GetGithubRelease(url, fallbackUrl string) (*GithubRelease, error) {
 
 	if res.StatusCode >= 300 {
 		isRateLimitedOrBlocked := res.StatusCode == 401 || res.StatusCode == 403 || res.StatusCode == 429
-		triedFallback := url == fallbackUrl
 
 		// GitHub has a very strict 60 req/h rate limit and some (mostly indian) isps block github for some reason.
-		// If that is the case, try our fallback at https://vencord.dev/releases/project
-		if isRateLimitedOrBlocked && !triedFallback {
-			fmt.Printf("Failed to fetch %s (status code %d). Trying fallback url %s\n", url, res.StatusCode, fallbackUrl)
-			return GetGithubRelease(fallbackUrl, fallbackUrl)
+		if isRateLimitedOrBlocked {
+			fmt.Printf("Failed to fetch %s (status code %d)")
 		}
 
 		err = errors.New(res.Status)
@@ -85,7 +82,7 @@ func GetGithubRelease(url, fallbackUrl string) (*GithubRelease, error) {
 func InitGithubDownloader() {
 	GithubDoneChan = make(chan bool, 1)
 
-	IsDevInstall = os.Getenv("VENCORD_DEV_INSTALL") == "1"
+	IsDevInstall = os.Getenv("STORMCORD_DEV_INSTALL") == "1"
 	fmt.Println("Is Dev Install: ", IsDevInstall)
 	if IsDevInstall {
 		GithubDoneChan <- true
@@ -98,7 +95,7 @@ func InitGithubDownloader() {
 			GithubDoneChan <- GithubError == nil
 		}()
 
-		data, err := GetGithubRelease(ReleaseUrl, ReleaseUrlFallback)
+		data, err := GetGithubRelease(ReleaseUrl)
 		if err != nil {
 			GithubError = err
 			return
@@ -120,7 +117,7 @@ func InitGithubDownloader() {
 	//goland:noinspection GoUnhandledErrorResult
 	defer f.Close()
 
-	fmt.Println("Found existing Vencord Install. Checking for hash...")
+	fmt.Println("Found existing Stormcord Install. Checking for hash...")
 	scanner := bufio.NewScanner(f)
 	if scanner.Scan() {
 		line := scanner.Text()

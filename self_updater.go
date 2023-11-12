@@ -16,7 +16,7 @@ var IsInstallerOutdated = false
 func CheckSelfUpdate() {
 	fmt.Println("Checking for Installer Updates...")
 
-	res, err := GetGithubRelease(InstallerReleaseUrl, InstallerReleaseUrlFallback)
+	res, err := GetGithubRelease(InstallerReleaseUrl)
 	if err == nil {
 		IsInstallerOutdated = res.TagName != InstallerTag
 	}
@@ -25,9 +25,9 @@ func CheckSelfUpdate() {
 func GetInstallerDownloadLink() string {
 	switch runtime.GOOS {
 	case "windows":
-		return "https://github.com/Vencord/Installer/releases/latest/download/VencordInstaller.exe"
+		return "https://github.com/Stormcord/Installer/releases/latest/download/StormcordInstaller.exe"
 	case "darwin":
-		return "https://github.com/Vencord/Installer/releases/latest/download/VencordInstaller.MacOS.zip"
+		return "https://github.com/Stormcord/Installer/releases/latest/download/StormcordInstaller.MacOS.zip"
 	default:
 		return ""
 	}

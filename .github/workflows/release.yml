@@ -40,26 +40,26 @@ jobs:
         run: go get -v
 
       - name: Build X11 Gui
-        run: CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -v -tags "static gui" -ldflags "-s -w -X 'main.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'main.InstallerTag=${{ github.ref_name }}'" -o VencordInstaller-x11
+        run: CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -v -tags "static gui" -ldflags "-s -w -X 'main.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'main.InstallerTag=${{ github.ref_name }}'" -o StormcordInstaller-x11
 
       - name: Build Wayland Gui
-        run: CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -v -tags "static wayland gui" -ldflags "-s -w -X 'main.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'main.InstallerTag=${{ github.ref_name }}'" -o VencordInstaller-wayland
+        run: CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -v -tags "static wayland gui" -ldflags "-s -w -X 'main.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'main.InstallerTag=${{ github.ref_name }}'" -o StormcordInstaller-wayland
 
       - name: Build Cli
-        run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v -tags "static cli" -ldflags "-s -w -X 'main.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'main.InstallerTag=${{ github.ref_name }}'" -o VencordInstallerCli-linux
+        run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v -tags "static cli" -ldflags "-s -w -X 'main.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'main.InstallerTag=${{ github.ref_name }}'" -o StormcordInstallerCli-linux
 
       - name: Update executable
         run: |
-          chmod +x VencordInstaller-*
+          chmod +x StormcordInstaller-*
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: VencordInstaller-linux
+          name: StormcordInstaller-linux
           path: |
-            VencordInstaller-x11
-            VencordInstaller-wayland
-            VencordInstallerCli-linux
+            StormcordInstaller-x11
+            StormcordInstaller-wayland
+            StormcordInstallerCli-linux
 
 
   build-mac:
@@ -99,22 +99,22 @@ jobs:
 
       - name: Update executable
         run: |
-          chmod +x VencordInstaller
+          chmod +x StormcordInstaller
 
       - name: Generate MacOS bundle
         run: |
-          mkdir -p VencordInstaller.app/Contents/MacOS
-          mkdir -p VencordInstaller.app/Contents/Resources
-          cp macos/Info.plist VencordInstaller.app/Contents/Info.plist
-          mv VencordInstaller VencordInstaller.app/Contents/MacOS/VencordInstaller
-          cp macos/icon.icns VencordInstaller.app/Contents/Resources/icon.icns
-          zip -r VencordInstaller.MacOS.zip VencordInstaller.app
+          mkdir -p StormcordInstaller.app/Contents/MacOS
+          mkdir -p StormcordInstaller.app/Contents/Resources
+          cp macos/Info.plist StormcordInstaller.app/Contents/Info.plist
+          mv StormcordInstaller StormcordInstaller.app/Contents/MacOS/StormcordInstaller
+          cp macos/icon.icns StormcordInstaller.app/Contents/Resources/icon.icns
+          zip -r StormcordInstaller.MacOS.zip StormcordInstaller.app
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: VencordInstaller-macos
-          path: VencordInstaller.MacOS.zip
+          name: StormcordInstaller-macos
+          path: StormcordInstaller.MacOS.zip
 
 
   build-windows:
@@ -162,22 +162,22 @@ jobs:
           export GOROOT=/mingw64/lib/go
           export GOPATH=/mingw64
           go-winres make --product-version "git-tag"
-          CGO_ENABLED=1 GOOS=windows GOARCH=amd64 go build -v -tags static -ldflags "-s -w -H=windowsgui -extldflags=-static -X 'main.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'main.InstallerTag=${{ github.ref_name }}'" -o VencordInstaller.exe
+          CGO_ENABLED=1 GOOS=windows GOARCH=amd64 go build -v -tags static -ldflags "-s -w -H=windowsgui -extldflags=-static -X 'main.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'main.InstallerTag=${{ github.ref_name }}'" -o StormcordInstaller.exe
 
       - name: Build i386 Cli
         shell: msys2 {0}
         run: |
           export GOROOT=/mingw64/lib/go
           export GOPATH=/mingw64
-          CGO_ENABLED=0 GOOS=windows GOARCH=386 go build -v -tags "static cli" -ldflags "-s -w -extldflags=-static -X 'main.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'main.InstallerTag=${{ github.ref_name }}'" -o VencordInstallerCli.exe
+          CGO_ENABLED=0 GOOS=windows GOARCH=386 go build -v -tags "static cli" -ldflags "-s -w -extldflags=-static -X 'main.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'main.InstallerTag=${{ github.ref_name }}'" -o StormcordInstallerCli.exe
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: VencordInstaller-windows
+          name: StormcordInstaller-windows
           path: |
-            VencordInstaller.exe
-            VencordInstallerCli.exe
+            StormcordInstaller.exe
+            StormcordInstallerCli.exe
 
 
   release:
@@ -190,17 +190,17 @@ jobs:
 
       - uses: actions/download-artifact@v3
         with:
-          name: VencordInstaller-linux
+          name: StormcordInstaller-linux
           path: linux
 
       - uses: actions/download-artifact@v3
         with:
-          name: VencordInstaller-macos
+          name: StormcordInstaller-macos
           path: macos
 
       - uses: actions/download-artifact@v3
         with:
-          name: VencordInstaller-windows
+          name: StormcordInstaller-windows
           path: windows
 
       - name: Create the release
@@ -212,6 +212,6 @@ jobs:
           prerelease: false
           draft: false
           files: |
-            linux/VencordInstalle*
-            macos/VencordInstaller.MacOS.zip
-            windows/VencordInstalle*.exe
+            linux/StormcordInstalle*
+            macos/StormcordInstaller.MacOS.zip
+            windows/StormcordInstalle*.exe
