@@ -134,9 +134,9 @@ jobs:
           path: macos
         
       - name: Get some values needed for the release
-              id: release_values
-              run: |
-                  echo "release_tag=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+        id: release_values
+        run: |
+              echo "release_tag=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
       - name: Create the release
         run: |
