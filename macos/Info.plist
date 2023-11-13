@@ -3,13 +3,13 @@
 <plist version="1.0">
     <dict>
         <key>CFBundleExecutable</key>
-        <string>StormcordInstaller</string>
+        <string>EquicordInstaller</string>
 
         <key>CFBundleIconFile</key>
         <string>icon.icns</string>
 
         <key>CFBundleIdentifier</key>
-        <string>dev.foxstorm.stormcordinstaller</string>
+        <string>dev.foxstorm.equicordinstaller</string>
 
         <key>NSHighResolutionCapable</key>
         <true/>

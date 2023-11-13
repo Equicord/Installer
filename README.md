@@ -1,6 +1,6 @@
-# Stormcord Installer
+# Equicord Installer
 
-The Stormcord Installer allows you to install [Stormcord, the cutest Discord Desktop client mod](https://github.com/Stormcord/Stormcord)
+The Equicord Installer allows you to install [Equicord, the cutest Discord Desktop client mod](https://github.com/Equicord/Equicord)
 
 ![image](https://user-images.githubusercontent.com/45497981/226734476-5fb42420-844d-4e27-ae06-4799118e086e.png)
 
@@ -60,4 +60,4 @@ go build --tags cli
 ```
 
 You might want to pass some flags to this command to get a better build.
-See [the GitHub workflow](https://github.com/Stormcord/StormcordInstaller/blob/main/.github/workflows/release.yml) for what flags I pass or if you want more precise instructions
+See [the GitHub workflow](https://github.com/Equicord/EquicordInstaller/blob/main/.github/workflows/release.yml) for what flags I pass or if you want more precise instructions

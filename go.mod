@@ -1,4 +1,4 @@
-module github.com/Vendicated/VencordInstaller
+module github.com/Equicord/Installer
 
 go 1.19
 

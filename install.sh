@@ -21,14 +21,14 @@ else
   set -- "$@" "XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR" "WAYLAND_DISPLAY=$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY"
 fi
 
-curl -sS https://github.com/Stormcord/StormcordInstaller/releases/latest/download/StormcordInstaller-$kind \
+curl -sS https://github.com/Equicord/Installer/releases/latest/download/EquicordInstaller-$kind \
   --output "$outfile" \
   --location
 
 chmod +x "$outfile"
 
 echo
-echo "Now running StormcordInstaller"
+echo "Now running EquicordInstaller"
 echo "Do you want to run as root? [Y|n]"
 echo "This is necessary if Discord is in a root owned location like /usr/share or /opt"
 printf "> "

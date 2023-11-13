@@ -9,7 +9,7 @@
   "RT_MANIFEST": {
     "#1": {
       "0409": {
-        "description": "An Installer for the Stormcord Discord Mod",
+        "description": "An Installer for the Equicord Discord Mod",
         "minimum-os": "win10",
         "execution-level": "as invoker",
         "dpi-awareness": "system"
@@ -22,10 +22,10 @@
         "info": {
           "0409": {
             "Comments": "Comments",
-            "CompanyName": "Stormcord",
-            "FileDescription": "Stormcord Installer",
+            "CompanyName": "Equicord",
+            "FileDescription": "Equicord Installer",
             "LegalCopyright": "© 2023 Vendicated and Contributors - GPL3.0",
-            "ProductName": "Stormcord Installer",
+            "ProductName": "Equicord Installer",
             "ProductVersion": ""
           }
         }

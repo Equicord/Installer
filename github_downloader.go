@@ -37,7 +37,7 @@ var InstalledHash = "None"
 var LatestHash = "Unknown"
 var IsDevInstall bool
 
-func GetGithubRelease(url, string) (*GithubRelease, error) {
+func GetGithubRelease(url string) (*GithubRelease, error) {
 	fmt.Println("Fetching", url)
 
 	req, err := http.NewRequest("GET", url, nil)
@@ -82,7 +82,7 @@ func GetGithubRelease(url, string) (*GithubRelease, error) {
 func InitGithubDownloader() {
 	GithubDoneChan = make(chan bool, 1)
 
-	IsDevInstall = os.Getenv("STORMCORD_DEV_INSTALL") == "1"
+	IsDevInstall = os.Getenv("EQUICORD_DEV_INSTALL") == "1"
 	fmt.Println("Is Dev Install: ", IsDevInstall)
 	if IsDevInstall {
 		GithubDoneChan <- true
@@ -117,7 +117,7 @@ func InitGithubDownloader() {
 	//goland:noinspection GoUnhandledErrorResult
 	defer f.Close()
 
-	fmt.Println("Found existing Stormcord Install. Checking for hash...")
+	fmt.Println("Found existing Equicord Install. Checking for hash...")
 	scanner := bufio.NewScanner(f)
 	if scanner.Scan() {
 		line := scanner.Text()

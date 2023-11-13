@@ -25,9 +25,9 @@ func CheckSelfUpdate() {
 func GetInstallerDownloadLink() string {
 	switch runtime.GOOS {
 	case "windows":
-		return "https://github.com/Stormcord/Installer/releases/latest/download/StormcordInstaller.exe"
+		return "https://github.com/Equicord/Installer/releases/latest/download/EquicordInstaller.exe"
 	case "darwin":
-		return "https://github.com/Stormcord/Installer/releases/latest/download/StormcordInstaller.MacOS.zip"
+		return "https://github.com/Vencord/Installer/releases/latest/download/EquicordInstaller.MacOS.zip"
 	default:
 		return ""
 	}

@@ -34,9 +34,9 @@ func main() {
 	InitGithubDownloader()
 	discords = FindDiscords()
 
-	var installFlag = flag.Bool("install", false, "Install Stormcord on a Discord install")
-	var updateFlag = flag.Bool("reinstall", false, "Reinstall & update Stormcord")
-	var uninstallFlag = flag.Bool("uninstall", false, "Uninstall Stormcord from a Discord install")
+	var installFlag = flag.Bool("install", false, "Install Equicord on a Discord install")
+	var updateFlag = flag.Bool("reinstall", false, "Reinstall & update Equicord")
+	var uninstallFlag = flag.Bool("uninstall", false, "Uninstall Equicord from a Discord install")
 	var installOpenAsar = flag.Bool("install-openasar", false, "Install OpenAsar on a Discord install")
 	var uninstallOpenAsar = flag.Bool("uninstall-openasar", false, "Uninstall OpenAsar from a Discord install")
 	var locationFlag = flag.String("location", "", "Select the location of your Discord install")
@@ -57,7 +57,7 @@ func main() {
 		}
 	}
 
-	fmt.Println("Stormcord Installer cli", InstallerTag, "("+InstallerGitHash+")")
+	fmt.Println("Equicord Installer cli", InstallerTag, "("+InstallerGitHash+")")
 
 	var err error
 	if *installFlag {
@@ -168,5 +168,5 @@ func HandleScuffedInstall() {
 	fmt.Println("Hold On!")
 	fmt.Println("You have a broken Discord Install.")
 	fmt.Println("Please reinstall Discord before proceeding!")
-	fmt.Println("Otherwise, Stormcord will likely not work.")
+	fmt.Println("Otherwise, Equicord will likely not work.")
 }

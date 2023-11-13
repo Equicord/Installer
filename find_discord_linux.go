@@ -34,10 +34,10 @@ func init() {
 	}
 	if sudoUser != "" {
 		if sudoUser == "root" {
-			panic("StormcordInstaller must not be run as the root user. Please rerun as normal user. Use sudo or doas to run as root.")
+			panic("EquicordInstaller must not be run as the root user. Please rerun as normal user. Use sudo or doas to run as root.")
 		}
 
-		fmt.Println("StormcordInstaller was run with root privileges, actual user is", sudoUser)
+		fmt.Println("EquicordInstaller was run with root privileges, actual user is", sudoUser)
 		fmt.Println("Looking up HOME of", sudoUser)
 
 		u, err := user.Lookup(sudoUser)
@@ -48,7 +48,7 @@ func init() {
 			_ = os.Setenv("HOME", u.HomeDir)
 		}
 	} else if os.Getuid() == 0 {
-		panic("StormcordInstaller was run as root but neither SUDO_USER nor DOAS_USER are set. Please rerun me as a normal user, with sudo/doas, or manually set SUDO_USER to your username")
+		panic("EquicordInstaller was run as root but neither SUDO_USER nor DOAS_USER are set. Please rerun me as a normal user, with sudo/doas, or manually set SUDO_USER to your username")
 	}
 	Home = os.Getenv("HOME")
 

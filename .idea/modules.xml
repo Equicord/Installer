@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/StormcordInstaller.iml" filepath="$PROJECT_DIR$/.idea/StormcordInstaller.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/EquicordInstaller.iml" filepath="$PROJECT_DIR$/.idea/EquicordInstaller.iml" />
     </modules>
   </component>
 </project>
