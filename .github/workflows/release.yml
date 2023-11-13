@@ -132,11 +132,17 @@ jobs:
         with:
           name: EquicordInstaller-macos
           path: macos
+        
+      - name: Get some values needed for the release
+              id: release_values
+              run: |
+                  echo "release_tag=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
       - name: Create the release
         run: |
-              gh release create devbuild-${{ github.ref_name }}
+              gh release create devbuild-$RELEASE_TAG
               gh release upload devbuild-${{ github.ref_name }} --clobber linux/EquicordInstalle* macos/EquicordInstaller.MacOS.zip
-              gh release edit devbuild-${{ github.ref_name }} --title "${{ github.ref_name }}"
+              gh release edit devbuild-$RELEASE_TAG --title "Release - $RELEASE_TAG"
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          RELEASE_TAG: ${{ env.release_tag }}
