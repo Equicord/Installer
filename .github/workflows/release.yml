@@ -115,70 +115,6 @@ jobs:
           name: EquicordInstaller-macos
           path: EquicordInstaller.MacOS.zip
 
-
-  build-windows:
-    runs-on: windows-latest
-
-    steps:
-      - name: Install Go
-        uses: actions/setup-go@v3
-        with:
-          go-version: "1.19"
-
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - uses: actions/cache@v3
-        with:
-          path: |
-            ~\AppData\Local\go-build
-            ~\go\pkg\mod
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-
-
-      - name: Setup MSYS2
-        uses: msys2/setup-msys2@v2
-
-      - name: Install Windows dependencies
-        shell: msys2 {0}
-        run: |
-          pacman -S --noconfirm git mingw-w64-x86_64-gcc mingw-w64-x86_64-SDL2 mingw-w64-x86_64-go
-          export GOROOT=/mingw64/lib/go
-          export GOPATH=/mingw64
-
-      - name: Install Go dependencies
-        shell: msys2 {0}
-        run: |
-          export GOROOT=/mingw64/lib/go
-          export GOPATH=/mingw64
-          go get -v
-          go install github.com/tc-hib/go-winres@latest
-
-      - name: Build Gui
-        shell: msys2 {0}
-        run: |
-          export GOROOT=/mingw64/lib/go
-          export GOPATH=/mingw64
-          go-winres make --product-version "git-tag"
-          CGO_ENABLED=1 GOOS=windows GOARCH=amd64 go build -v -tags static -ldflags "-s -w -H=windowsgui -extldflags=-static -X 'main.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'main.InstallerTag=${{ github.ref_name }}'" -o EquicordInstaller.exe
-
-      - name: Build i386 Cli
-        shell: msys2 {0}
-        run: |
-          export GOROOT=/mingw64/lib/go
-          export GOPATH=/mingw64
-          CGO_ENABLED=0 GOOS=windows GOARCH=386 go build -v -tags "static cli" -ldflags "-s -w -extldflags=-static -X 'main.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'main.InstallerTag=${{ github.ref_name }}'" -o EquicordInstallerCli.exe
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: EquicordInstaller-windows
-          path: |
-            EquicordInstaller.exe
-            EquicordInstallerCli.exe
-
-
   release:
     runs-on: ubuntu-latest
     needs: [build-linux, build-mac, build-windows]
@@ -197,11 +133,6 @@ jobs:
           name: EquicordInstaller-macos
           path: macos
 
-      - uses: actions/download-artifact@v3
-        with:
-          name: EquicordInstaller-windows
-          path: windows
-
       - name: Create the release
         uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5 # v1
         env:
@@ -213,4 +144,3 @@ jobs:
           files: |
             linux/EquicordInstalle*
             macos/EquicordInstaller.MacOS.zip
-            windows/EquicordInstalle*.exe
