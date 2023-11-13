@@ -134,13 +134,9 @@ jobs:
           path: macos
 
       - name: Create the release
-        uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5 # v1
+        run: |
+              gh release create devbuild-${{ github.ref_name }}
+              gh release upload devbuild-${{ github.ref_name }} --clobber linux/EquicordInstalle* macos/EquicordInstaller.MacOS.zip
+              gh release edit devbuild-${{ github.ref_name }} --title "${{ github.ref_name }}"
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        with:
-          name: ${{ github.ref_name }}
-          prerelease: false
-          draft: false
-          files: |
-            linux/EquicordInstalle*
-            macos/EquicordInstaller.MacOS.zip
