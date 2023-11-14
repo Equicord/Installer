@@ -14,7 +14,6 @@ import (
 	g "github.com/AllenDang/giu"
 	"github.com/AllenDang/imgui-go"
 	"image/color"
-	// png decoder for icon
 	"os"
 	path "path/filepath"
 	"runtime"
