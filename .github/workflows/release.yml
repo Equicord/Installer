@@ -156,7 +156,7 @@ jobs:
         run: |
           export GOROOT=/mingw64/lib/go
           export GOPATH=/mingw64
-          go-winres make --product-version "git-tag"
+          go-winres make --product-version "git-tag" --icon "winres/icon.png"
           CGO_ENABLED=1 GOOS=windows GOARCH=amd64 go build -v -tags static -ldflags "-s -w -H=windowsgui -extldflags=-static -X 'main.InstallerGitHash=$(git rev-parse --short HEAD)' -X 'main.InstallerTag=${{ github.ref_name }}'" -o EquicordInstaller.exe
       - name: Build i386 Cli
         shell: msys2 {0}
